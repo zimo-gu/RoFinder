@@ -12,9 +12,9 @@ import os
 load_dotenv()
 
 async def groupfinder(webhook_url):
-    @retry(stop_max_attempt_number=3, wait_fixed=1000)
+    @retry(stop_max_attempt_number=1, wait_fixed=1000)
     def make_request(url):
-        return requests.get(url, timeout=3)
+        return requests.get(url, timeout=1)
 
     while True:
         group_id = random.randint(1000000, 9999999)
@@ -50,7 +50,7 @@ async def groupfinder(webhook_url):
         except requests.exceptions.RequestException as e:
             print(f"{Fore.RED}Error making request: {e}{Style.RESET_ALL}")
 
-        await asyncio.sleep(3)
+        await asyncio.sleep(1)
 
 if __name__ == '__main__':
     webhook_url = os.getenv('DISCORD_WEBHOOK')
